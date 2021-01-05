@@ -3,15 +3,22 @@
 [[package]]
 name = "botel"
 version = "0.1.0"
+dependencies = [
+ "botel_parser",
+ "botel_tokenizer",
+]
 
 [[package]]
-name = "botel-parser"
+name = "botel_parser"
+version = "0.1.0"
+dependencies = [
+ "botel_tokenizer",
+]
+
+[[package]]
+name = "botel_repl"
 version = "0.1.0"
 
 [[package]]
-name = "botel-repl"
-version = "0.1.0"
-
-[[package]]
-name = "botel-tokenizer"
+name = "botel_tokenizer"
 version = "0.1.0"

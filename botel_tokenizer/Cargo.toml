@@ -1,5 +1,5 @@
 [package]
-name = "botel-parser"
+name = "botel_tokenizer"
 version = "0.1.0"
 authors = ["uigctaw <uigctaw@protonmail.com>"]
 edition = "2018"

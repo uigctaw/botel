@@ -2,7 +2,7 @@
 
 members = [
     "botel",
-    "botel-parser",
-    "botel-repl",
-    "botel-tokenizer",
+    "botel_parser",
+    "botel_repl",
+    "botel_tokenizer",
 ]

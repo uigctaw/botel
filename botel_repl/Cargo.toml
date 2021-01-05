@@ -1,5 +1,5 @@
 [package]
-name = "botel-repl"
+name = "botel_repl"
 version = "0.1.0"
 authors = ["uigctaw <uigctaw@protonmail.com>"]
 edition = "2018"
