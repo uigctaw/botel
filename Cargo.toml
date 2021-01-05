@@ -1,0 +1,8 @@
+[workspace]
+
+members = [
+    "botel",
+    "botel-parser",
+    "botel-repl",
+    "botel-tokenizer",
+]
