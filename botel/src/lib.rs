@@ -14,7 +14,6 @@ pub fn run<'a>(
     let program = parse(&tokens);
 
     let mut results = HashMap::<&str, Box<dyn Any>>::new();
-    results.insert("x", Box::new(1));
     results
 }
 
@@ -32,6 +31,6 @@ mod tests {
             None => panic!("x is missing!"),
         };
         let x = any_x.downcast_ref::<i32>().unwrap();
-        assert_eq!(*x, 1);
+        assert_eq!(*x, 2);
     }
 }
