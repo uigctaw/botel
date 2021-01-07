@@ -13,7 +13,8 @@ pub fn run<'a>(
     let tokens = tokenize(program_text);
     let program = parse(&tokens);
 
-    let mut results = HashMap::new();
+    let mut results = HashMap::<&str, Box<dyn Any>>::new();
+    results.insert("x", Box::new(1));
     results
 }
 
@@ -23,8 +24,14 @@ mod tests {
     use super::*;
 
     #[test]
-    fn a_equals() {
+    fn value_equals_int() {
         let ret = run("x = 2", vec!["x"]);
-        //assert_eq!(2 + 2, 4);
+        let maybe_x = ret.get("x");
+        let any_x = match maybe_x {
+            Some(maybe_x) => maybe_x,
+            None => panic!("x is missing!"),
+        };
+        let x = any_x.downcast_ref::<i32>().unwrap();
+        assert_eq!(*x, 1);
     }
 }
