@@ -40,28 +40,22 @@ pub fn parse(tokens: Vec<Token>) -> Vec<AST> {
             Token::Integer(num) => { 
                 ast.push(AST::Integer(num.parse::<i64>().unwrap()));
             },
-            Token::Equals(_) => {
+            Token::Equals(_)
+            | Token::Plus(_) => {
+                let bin_op_name = match token {
+                    Token::Equals(_) => BinOpName::Equation,
+                    Token::Plus(_) => BinOpName::Sum,
+                    _ => panic!("Should be impossible to get here"),
+                };
                 let maybe_right = ast.pop();
                 let maybe_left = ast.pop();
                 if let (Some(left), Some(right)) = (maybe_left, maybe_right) {
-                    let eq = BinOp {
+                    let inner = BinOp {
                         left: Box::new(left),
                         right: Box::new(right),
-                        what: BinOpName::Equation,
+                        what: bin_op_name,
                     };
-                    ast.push(AST::BinOp(eq));
-                } else { panic!("some syntax error") }
-            },
-            Token::Plus(_) => {
-                let maybe_right = ast.pop();
-                let maybe_left = ast.pop();
-                if let (Some(left), Some(right)) = (maybe_left, maybe_right) {
-                    let sum = BinOp {
-                        left: Box::new(left),
-                        right: Box::new(right),
-                        what: BinOpName::Sum,
-                    };
-                    ast.push(AST::BinOp(sum));
+                    ast.push(AST::BinOp(inner));
                 } else { panic!("some syntax error") }
             },
             _ => panic!("unexpected token"),
