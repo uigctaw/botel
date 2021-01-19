@@ -23,9 +23,9 @@ lazy_static! {
 }
 
 
-pub fn tokenize(program_text: &str) -> Vec<Token> {
+pub fn tokenize(program_text: String) -> Vec<Token> {
     let mut tokens = Vec::new();
-    let mut slice = program_text;
+    let mut slice = &program_text[..];
     while slice.len() > 0 {
         let mut matched = false;
         for (regex, token_kind) in REGEX_AND_KIND.iter() {
@@ -55,13 +55,13 @@ mod tests {
 
     #[test]
     fn find_whitespace() {
-        let tokens = tokenize("  ");
+        let tokens = tokenize("  ".to_string());
         assert_eq!(tokens, vec![Token::Whitespace("  ".to_string())]);
     }
 
     #[test]
     fn find_equals() {
-        let tokens = tokenize("==");
+        let tokens = tokenize("==".to_string());
         assert_eq!(
             tokens, 
             vec![
@@ -73,7 +73,7 @@ mod tests {
 
     #[test]
     fn find_integer() {
-        let tokens = tokenize("12 34");
+        let tokens = tokenize("12 34".to_string());
         assert_eq!(
             tokens, 
             vec![
@@ -86,7 +86,7 @@ mod tests {
 
     #[test]
     fn find_name() {
-        let tokens = tokenize("a _ Bc _d");
+        let tokens = tokenize("a _ Bc _d".to_string());
         assert_eq!(
             tokens, 
             vec![

@@ -23,14 +23,17 @@ pub enum BinOpName {
 #[derive(Debug)]
 #[derive(PartialEq)]
 pub struct BinOp{
-    left: Box<AST>,
-    right: Box<AST>,
-    what: BinOpName,
+    pub left: Box<AST>,
+    pub right: Box<AST>,
+    pub what: BinOpName,
 }
 
 
 pub fn parse(tokens: Vec<Token>) -> Vec<AST> {
-    let postfix_tokens = convert_to_postfix_notation(tokens);
+    let filtered = tokens.into_iter().filter(
+        | t | !matches!(t, Token::Whitespace(_))
+        );
+    let postfix_tokens = convert_to_postfix_notation(filtered.collect());
     let mut ast = Vec::new();
     for token in postfix_tokens.into_iter() {
         match token {
